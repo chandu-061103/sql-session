@@ -1,0 +1,46 @@
+-- 1. Dept total salary
+
+-- with dept_total as (
+--     select department_id,sum(salary) as total
+--     from hr.employees
+--     group by department_id
+-- )
+-- select * from dept_total
+
+-- 2. Rank employees
+
+-- with ranked as (
+--     select first_name,salary,
+--     rank() over(order by salary desc) rnk
+--     from hr.employees
+-- )
+-- select * from ranked
+
+-- 3. Top 3 per dept
+
+-- with top_dept as (
+--     select department_id,first_name,
+--     dense_rank() over(partition by department_id order by salary desc) rnk
+--     from hr.employees
+-- )
+-- select * from top_dept
+-- where rnk<=3
+
+-- 4. Remove duplicates
+
+-- with cte as (
+--     select first_name,
+--     row_number() over (partition by first_name order by employee_id) rw
+--     from hr.employees
+-- )
+-- select * from cte
+-- where rw>1
+
+-- 5. Running total
+
+-- with cte as (
+--     select first_name,salary,
+--     sum(salary) over(order by employee_id) running_total
+--     from hr.employees
+-- )
+-- select  * from cte
