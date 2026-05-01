@@ -1,0 +1,57 @@
+-- 1. Employees earning more than average salary
+
+-- select emp_name, salary
+-- from Employees
+-- where salary > (select avg(salary) from Employees)
+
+-- 2. Second highest salary
+
+-- select max(salary)
+-- from Employees
+-- where salary < (select(salary) from Employees)
+
+-- 3. Employees in IT department
+
+-- select emp_name
+-- from EMPLOYEES
+-- where dept_id = (select dept_id
+-- from DEPARTMENTS
+-- where dept_ID = 20)
+
+-- 4. Employees with salary greater than HR employees
+
+-- select emp_name
+-- from EMPLOYEES
+-- where salary > all(select salary
+-- from EMPLOYEES
+-- where dept_id=10)
+
+-- 5. Employees who are managers
+
+-- select *
+-- from hr.EMPLOYEES
+-- where employee_id in (select MANAGER_ID
+-- from hr.employees)
+
+-- select * from hr.employees
+
+--  6. Departments having more than 5 employees
+
+-- select department_id
+-- from hr.EMPLOYEES
+-- group by department_id
+-- having count(*)>5
+
+-- 7. Employees without department
+
+-- select *
+-- from hr.EMPLOYEES
+-- where department_id is null
+
+-- 8. Dept avg salary > overall avg
+
+-- select dept_id
+-- from EMPLOYEES
+-- group by dept_id
+-- having avg(salary) > (select avg(salary)
+-- from employees)
