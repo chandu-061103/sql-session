@@ -1,0 +1,38 @@
+-- --  1. Dept avg → filter employees
+
+-- -- with dept_avg as (
+-- --     select department_id,avg(salary) as avg_sal
+-- --     from hr.EMPLOYEES
+-- --     group by department_id
+-- -- ),
+-- -- filtered  as (
+-- --     select e.first_name,e.salary
+-- --     from hr.employees e
+-- --     join dept_avg d
+-- --     on e.department_id=d.department_id
+-- --     where e.salary > d.avg_sal
+-- -- )
+-- -- select * from filtered
+
+-- --  2. Rank → filter top 3
+
+-- -- with rank as (
+-- --     select first_name,salary,
+-- --     dense_rank() over(order by salary desc) dr
+-- --     from hr.employees
+-- -- ),
+-- -- top3 as (
+-- --     select * from rank where dr<=3
+-- -- )
+-- -- select * from top3
+
+-- WITH sales_cte AS (
+--     SELECT region, SUM(amount) total
+--     FROM Sales GROUP BY region
+-- ),
+-- ranked AS (
+--     SELECT region, total,
+--     RANK() OVER (ORDER BY total DESC) rnk
+--     FROM sales_cte
+-- )
+-- SELECT * FROM ranked;
