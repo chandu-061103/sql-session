@@ -1,0 +1,149 @@
+-- -- CREATE TABLE flight (
+-- --     flight_id INT PRIMARY KEY,
+-- --     airline_id INT,
+-- --     source VARCHAR(50),
+-- --     destination VARCHAR(50),
+-- --     departure_time DATE,
+-- --     arrival_time DATE,
+-- --     price DECIMAL(10,2),
+-- --     FOREIGN KEY (airline_id) REFERENCES airlines(airline_id)
+-- -- );
+
+-- INSERT ALL
+--     INTO flight VALUES (101, 1, 'Delhi', 'Mumbai',
+--         TO_DATE('2026-04-01 08:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-01 10:00:00','YYYY-MM-DD HH24:MI:SS'), 600)
+
+--     INTO flight VALUES (102, 1, 'Mumbai', 'Bangalore',
+--         TO_DATE('2026-04-02 09:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-02 11:30:00','YYYY-MM-DD HH24:MI:SS'), 750)
+
+--     INTO flight VALUES (103, 2, 'Delhi', 'Bangalore',
+--         TO_DATE('2026-04-01 07:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-01 10:00:00','YYYY-MM-DD HH24:MI:SS'), 500)
+
+--     INTO flight VALUES (104, 2, 'Bangalore', 'Chennai',
+--         TO_DATE('2026-04-03 06:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-03 07:00:00','YYYY-MM-DD HH24:MI:SS'), 300)
+
+--     INTO flight VALUES (105, 3, 'Dubai', 'Delhi',
+--         TO_DATE('2026-04-01 02:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-01 07:00:00','YYYY-MM-DD HH24:MI:SS'), 1200)
+
+--     INTO flight VALUES (106, 3, 'Delhi', 'Dubai',
+--         TO_DATE('2026-04-02 03:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-02 08:00:00','YYYY-MM-DD HH24:MI:SS'), 1100)
+
+--     INTO flight VALUES (107, 4, 'Doha', 'Mumbai',
+--         TO_DATE('2026-04-01 04:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-01 09:00:00','YYYY-MM-DD HH24:MI:SS'), 1300)
+
+--     INTO flight VALUES (108, 4, 'Mumbai', 'Doha',
+--         TO_DATE('2026-04-02 05:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-02 10:00:00','YYYY-MM-DD HH24:MI:SS'), 1250)
+
+--     INTO flight VALUES (109, 1, 'Delhi', 'Mumbai',
+--         TO_DATE('2026-04-01 08:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-01 10:00:00','YYYY-MM-DD HH24:MI:SS'), 600)
+
+--     INTO flight VALUES (110, 2, 'Delhi', 'Bangalore',
+--         TO_DATE('2026-04-04 07:00:00','YYYY-MM-DD HH24:MI:SS'),
+--         TO_DATE('2026-04-04 10:00:00','YYYY-MM-DD HH24:MI:SS'), 550)
+-- select * from dual
+
+-- select * from flight
+
+-- 1.Write a query using a CTE to retrieve all flights with price greater than 500.
+
+-- with cte as (select *
+-- from flight)
+-- select *
+-- from cte
+-- where price > 500;
+
+-- 2.Use a CTE to join airlines and flights and display airline name, source, destination, and price.
+
+-- with cte as (select a.AIRLINE_NAME,f.DESTINATION,f.price,f.source
+-- from airlines a 
+-- JOIN
+-- flight f
+-- on a.AIRLINE_ID=f.AIRLINE_ID)
+-- select * from cte
+
+-- 3.Write a CTE to calculate the average flight price per airline.
+
+-- with cte as (select avg(price) avg_price,airline_id
+-- from flight f
+-- GROUP by airline_id)
+-- select * from cte
+
+-- 4.Using a CTE, find airlines whose average flight price is greater than 700.
+
+with avg_price as (select avg(price),airline_id
+-- from flight
+-- group by airline_id
+-- having avg(price)>700)
+-- select * from avg_price
+
+-- 5.Create a CTE to rank flights within each airline based on price (highest to lowest).
+
+-- with rank as (select
+--  price,
+--  AIRLINE_ID,
+-- dense_rank() over(partition by AIRLINE_ID order by price desc)as dr
+-- from flight)
+-- select * from rank
+
+-- 6.Use a CTE to find the most expensive flight for each airline.
+
+-- with rank as (select
+-- price,
+-- AIRLINE_ID,
+-- dense_rank() over(partition by AIRLINE_ID order by price desc)as dr
+-- from flight)
+-- select * from rank
+-- where dr=1
+
+-- 7.Write a recursive CTE to display possible flight paths starting from a given city.
+
+-- with city as (select flight_id,source
+-- from flight)
+-- select * from city
+
+--8.Use a CTE to identify duplicate flights based on source, destination, and departure_time.
+
+-- with cte as (select source,destination,departure_time,
+-- count(*) over(partition by source,destination,departure_time) as cr
+-- from flight)
+-- select *
+-- from CTE
+-- where cr>1
+
+-- 9.Write a CTE to calculate a running total of flight prices per airline ordered by departure time.
+
+-- with cte as (select airline_id,departure_time,sum(price)
+-- from FLIGHT
+-- group by airline_id,departure_time
+-- order by departure_time)
+-- select * from cte
+
+10.Use multiple CTEs to:
+-- Count total flights per airline
+-- Calculate average price per airline
+-- Display both results together
+
+-- with count as (select airline_id,count(*) as total_flights
+-- from FLIGHT
+-- group by airline_id),
+-- avg_price as (select airline_id,avg(price) as avg_price
+-- from flight
+-- group by airline_id),
+-- total as (select c.airline_id,c.total_flights,a.avg_price
+-- from count c join avg_price a
+-- on c.airline_id=c.airline_id)
+-- select * from total
+
+
+
+
+
