@@ -1,0 +1,125 @@
+-- # exception handling
+
+-- # task 1
+
+DECLARE
+
+--    product details
+    product_id NUMBER:=101;
+    product_name VARCHAR2(20);
+
+-- invertory details
+    available_stock NUMBER:=5;
+    requested_qut NUMBER:=10;
+
+-- billing details
+    product_price NUMBER:=2500;
+    total_amount NUMBER;
+
+-- customer details
+    customer_name VARCHAR2(5);
+
+-- discount
+    discount_percent NUMBER:=0;
+    final_amount NUMBER;
+
+    chandu EXCEPTION;
+
+BEGIN
+
+    if 'available_stock' < 'requested_quantity' THEN
+        RAISE chandu;.output
+    end if;
+
+    total_amount:=product_id*product_price;
+    dbms_output.PUT_LINE('output: '|| total_amount);
+
+EXCEPTION
+    when chandu THEN
+        dbms_output.put_line('requirement quantity is not available');
+end;
+/
+
+
+
+-- # task-2 
+
+declare
+
+    a number :=10;
+    b number :=5;
+ 
+    total_stock NUMBER;
+    custom EXCEPTION;
+BEGIN  
+
+    if a > b THEN
+        raise custom;
+    end if;
+
+    total_stock:= a - b;
+    dbms_output.put_line('output: '|| total_stock);
+
+EXCEPTION
+    when custom then
+        dbms_output.put_line('required stock is not available');
+end;
+/
+
+
+
+--task-3
+
+
+DECLARE
+
+    c_name varchar2(20):='aravind';
+     
+    error exception;
+
+begin
+
+    if c_name='chandu' then
+     dbms_output.put_line(c_name);
+        
+    else
+        raise error;
+    end if;
+exception
+    when error then
+        dbms_output.put_line('error');
+end;
+/
+
+
+--task-4
+
+DECLARE
+
+    a number :=10;
+    b number :=2;
+    c number;
+begin
+    c:=a/b;
+        dbms_output.put_line('output:'|| c);
+end;
+/
+
+
+--task-5
+
+DECLARE
+
+    t_m number :=1000;
+    dis number :=2;
+    final_bill number;
+
+BEGIN
+    final_bill:=(t_m*dis)/100;
+    dbms_output.put_line('output:'|| final_bill );
+end;
+/
+
+
+--task-6
+
