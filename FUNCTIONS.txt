@@ -1,0 +1,249 @@
+# FUNCTIONS
+
+-- 1.adding of numbers
+
+-- create or replace function fn_add(a number,b number)
+-- return NUMBER
+-- IS
+-- begin
+--     return a+b;
+-- end;
+-- /
+-- select fn_add(10,20)
+
+-- 2.substraction of numbers
+
+-- create or replace function fn_subtraction(a number,b number)
+-- return NUMBER
+-- is
+-- BEGIN
+--     return a-b;
+-- end;
+-- /
+-- select FN_SUBTRACTION(20,30)
+
+-- 3.check even or odd
+
+-- create or replace function fn_even_odd(a number)
+-- return VARCHAR2
+-- is
+-- BEGIN
+--     if mod(a,2)=0 THEN
+--         return 'even';
+--     else
+--         return 'odd';
+--     end if;
+-- end;
+-- /
+-- select fn_even_odd(11)
+
+-- 4.replace function
+
+-- create or replace FUNCTION fn_reverse( txt varchar2)
+-- return VARCHAR2
+-- is
+-- BEGIN
+--     return REVERSE(txt);
+-- end;
+-- /
+-- select fn_reverse('aravind')
+
+-- 5.current date function
+
+-- create or replace function fn_current_date
+-- return DATE
+-- is 
+-- BEGIN
+--     return sysdate;
+-- end;
+-- /
+-- select fn_current_date
+
+-- 6.age calculation function
+
+-- create or replace function fn_age(dob date)
+-- return NUMBER
+-- is
+-- BEGIN
+--     return trunc(months_between(sysdate,dob)/12);
+-- end;
+-- /
+-- select fn_age(TO_DATE('06-11-2003','DD-MM-YYYY')) FROM dual;
+
+-- 7.upper function
+
+-- CREATE OR REPLACE FUNCTION fn_uppercase(txt VARCHAR2)
+-- RETURN VARCHAR2
+-- IS
+-- BEGIN
+--     RETURN UPPER(txt);
+-- END;
+-- /
+-- select fn_uppercase('chandu')
+
+--8. lower case
+
+-- create or replace function fn_lowercase(txt VARCHAR2)
+-- return VARCHAR2
+-- IS
+-- BEGIN
+--     return LOWER(txt);
+-- end;
+-- /
+-- select fn_lowercase('CHANDU')
+
+-- 9.length of a string
+
+-- create or replace function fn_length(txt varchar2)
+-- return varchar2
+-- IS
+-- begin
+--     return LENGTH(txt);
+-- end;
+-- /
+-- select fn_length('chandu')
+
+-- 10.Maximum Number Function
+
+-- create or replace function fn_max(a number,b number)
+-- return NUMBER
+-- is
+-- BEGIN
+--     if a > b then
+--         return a;
+--     else
+--         return b;
+--     end if;
+-- end;
+-- /
+-- select fn_max(20,30)
+
+-- 11.minimum number function
+
+-- create or replace function fn_min(a number, b number)
+-- return NUMBER
+-- is
+-- BEGIN
+--     if a < b THEN
+--         return a;
+--     ELSE
+--         return b;
+--     end if;
+-- end;
+-- /
+-- select fn_min(30,40)
+
+-- 12.cube finction
+
+-- CREATE OR REPLACE FUNCTION fn_cube(a NUMBER)
+-- RETURN NUMBER
+-- IS
+-- BEGIN
+--     RETURN a * a * a;
+-- END;
+-- /
+-- select fn_cube(2)
+
+-- 13.square function 
+
+-- CREATE OR REPLACE FUNCTION fn_square(a NUMBER)
+-- RETURN NUMBER
+-- IS
+-- BEGIN
+--     RETURN a * a;
+-- END;
+-- /
+-- select fn_square(3)
+
+-- 14.division function 
+
+-- CREATE OR REPLACE FUNCTION fn_divide(a NUMBER, b NUMBER)
+-- RETURN NUMBER
+-- IS
+-- BEGIN
+--     RETURN a / b;
+-- END;
+-- /
+-- select fn_divide(12,14)
+
+-- 15.Simple Interest Function
+
+-- create or replace function fn_simpleintrest(p number,r number ,t number)
+-- return NUMBER
+-- is
+-- BEGIN
+--     return p*r*t/100;
+-- end;
+-- /
+-- select fn_simpleintrest(12,13,14)
+
+-- 16. circle area function 
+
+-- create or replace function fn_circle_area_function(radius number)
+-- return NUMBER
+-- is
+-- BEGIN
+--     return 3.14*radius*radius;
+-- end;
+-- /
+-- select (3.5)
+
+-- 17.palindrome check 
+
+-- create or replace function fn_palindrome(txt varchar2)
+-- return varchar2
+-- is
+-- BEGIN
+--     if txt=REVERSE(txt) then
+--         return 'palindrome';
+--     ELSE
+--         return 'not a palindrome';
+--     end if;
+-- end;
+-- /
+-- select fn_palindrome('chandu')
+
+-- CREATE OR REPLACE FUNCTION fn_palindrome(n NUMBER)
+-- RETURN VARCHAR2
+-- IS
+--     rev_num NUMBER := 0;
+--     temp NUMBER;
+-- BEGIN
+--     temp := n;
+
+--     WHILE temp > 0 LOOP
+--         rev_num := rev_num * 10 + MOD(temp,10);
+--         temp := TRUNC(temp/10);
+--     END LOOP;
+
+--     IF n = rev_num THEN
+--         RETURN 'palindrome';
+--     ELSE
+--         RETURN 'not a palindrome';
+--     END IF;
+
+-- END;
+-- /
+-- select fn_palindrome(139)
+
+create or replace FUNCTION fn_palindrome(n number)
+return NUMBER
+IS
+    rev_num NUMBER:=0;
+    temp number;
+BEGIN
+    temp:=n;
+
+    while temp > 0 LOOP
+        rev_num :=rev_num * 10 + mod(temp,10);
+        temp :=trunc(temp/10);
+    end loop;
+
+    if n=rev_num THEN
+        return 'palindrome';
+    else
+        return 'not a palindrome';
+    end if;
+end;
+/
+select fn_palindrome(131)
