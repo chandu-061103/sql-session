@@ -1,0 +1,260 @@
+-- # procedures
+
+-- 1. Simple Procedure
+
+-- create or replace procedure hello_world
+-- is
+-- BEGIN
+--     dbms_output.put_line('hello world');
+-- end;
+-- /
+-- BEGIN HELLO_WORLD;
+-- end;
+-- /
+
+-- 2. Procedure with Input Parameter
+
+-- create or REPLACE PROCEDURE show_employee (p_emp_name varchar2)
+-- is
+-- BEGIN
+--     DBMS_OUTPUT.PUT_LINE('employee name: '|| p_emp_name);
+-- end;
+-- /
+-- begin SHOW_EMPLOYEE('chandu');
+-- end;
+-- /
+
+-- 3. Procedure with Addition
+
+-- create or replace procedure add_numbers(a number,b number)
+-- is
+--     c NUMBER;
+-- begin
+--     c:=a+b;
+
+--     dbms_output.put_line('sum='||c);
+-- end;
+-- /
+-- begin add_numbers(2,3);
+-- end;
+-- /
+
+-- 4. Procedure with OUT Parameter
+
+-- create or replace procedure get_square (p_num in number,p_square out number)
+-- IS
+-- BEGIN
+--     p_square :=p_num * p_num;
+-- end;
+-- /
+-- DECLARE
+--     result number;
+-- BEGIN
+--     GET_SQUARE(4,result);
+--         dbms_output.put_line('get_square:'|| result);
+-- end;
+-- /
+
+-- 5. Employee Salary Update
+
+-- create or replace procedure update_salary(p_empid number,p_increment number)
+-- is
+--     p_increment number;
+-- BEGIN
+--     update EMPLOYEES
+--     set salary = salary + p_increment
+--     where employee_id = p_empid;
+
+--     commit;
+
+--     dbms_output.put_line('salary updated');
+-- end;
+-- /
+-- begin update_salary(101,20000);
+-- end;
+-- /
+
+-- 6. Insert Employee Record
+
+-- create or replace procedure insert_employee(p_id number,p_name varchar2,p_salary NUMBER)
+-- is
+-- BEGIN
+--     insert into employees(employee_id,employee_name,salary)
+--     values(p_id,p_name,p_salary);
+
+--     commit;
+
+--     dbms_output.put_line('record inserted');
+-- end;
+-- /
+-- begin insert_employee(101,'chandu',10000);
+-- end;
+-- /
+
+
+-- 7. Delete Employee
+
+-- create or replace procedure delete_employee(p_empid NUMBER)
+-- is
+-- BEGIN
+--     delete from employeee
+--     where employee_id = p_empid;
+
+--     commit;
+
+--     dbms_output.put_line('employee deleted');
+
+-- end;
+-- /
+-- begin delete_employee(101);
+-- end;
+-- /
+
+-- 8. Find Maximum Salary
+
+-- create or replace procedure max_salary
+-- is
+--     v_max number;
+-- BEGIN
+--     select max(salary)
+--     into v_max
+--     from EMPLOYEES;
+
+--     dbms_output.put_line('maximum salary='|| v_max);
+-- end;
+-- /
+
+-- 9. Procedure with Exception Handling
+
+-- create or replace PROCEDURE divide_numbers (a number,b number)
+-- is
+--     c number;
+-- BEGIN
+--     c:=a/b;
+
+--     dbms_output.put_line('result= '|| c);
+
+-- exception
+--     when zero_divide then
+--         dbms_output.put_line('cannot divide by zero');
+-- end;
+-- /
+-- begin DIVIDE_NUMBERS(12,36);
+-- end;
+-- /
+
+
+-- 10. Cursor Procedure
+
+-- create or replace procedure employee_details
+-- is
+--     cursor emp_cursor is
+--         select employee_name,salary
+--         from  employees;
+
+
+--     v_name employees.employee_name%TYPE;
+--     v_salary employee.employee_salary%TYPE;
+
+-- BEGIN
+--     open emp_cursor;
+
+--     LOOP
+--         fetch emp_cursor into v_nmae,v_salary;
+
+--         exit when emp_cursor%notfound;
+
+--         dbms_output.put_line(v_name || ' - ' || v_salary);
+--     end loop;
+
+--     close emp_cursor;
+-- end;
+-- /
+-- BEGIN
+--     employee_details('chandu',50000);
+-- end;
+-- /
+
+-- 11. Banking Deposit Procedure
+
+-- create or replace procedure deposite_amount(p_accno number,p_amount number)
+-- is
+-- BEGIN
+--     update bank_accounts
+--     set balence = balence + p_amount
+--     where account_no = p_accno;
+
+--     commit;
+
+--     dbms_output.put_line('amount deposited');
+-- end;
+-- /
+-- begin
+--     deposite_amount(411231233231,20000);
+-- end;
+-- /
+
+-- 12. Banking Withdrawal Procedure
+
+-- create or replace procedure Withdraw_amount(p_accno number,p_amount number)
+-- is
+--     v_balence NUMBER;
+-- BEGIN
+--     select balence
+--     into balence
+--     from bank_accounts
+--     where account_no = p_accno;
+
+--     if v_balence >=p_amount THEN
+
+--     update bank_accounts
+--     set balence=balence - p_amount
+--     where account_no = p_accno;
+
+--     commit;
+
+--     dbms_output.put_line('withdrawl succesfully');
+
+--     ELSE
+--         dbms_output.put_line('insufficient balence');
+--     end if;
+-- end;
+-- /
+-- begin Withdraw_amount(411474475496,30000);
+-- end;
+-- /
+
+-- 13. Student Grade Procedure
+
+-- create or replace procedure student_grade(p_marks NUMBER)
+-- is
+-- BEGIN
+--     if p_marks>=90 then
+--         dbms_output.put_line('grade A');
+    
+--     elsif p_marks>=75 THEN
+--         dbms_output.put_line('grade B');
+    
+--     elsif p_marks>=50 then
+--         dbms_output.put_line('grade C');
+
+--     ELSE
+--         dbms_output.put_line('fail');
+--     end if;
+-- end;
+-- /
+-- begin student_grade(65);
+-- end;
+-- /
+
+-- 14. Factorial Procedure
+
+create or replace procedure factorial_proc(p_num NUMBER)
+is
+    fact number :=1;
+BEGIN
+    for i in 1..p_num LOOP
+        fact:=fact*i;
+    end loop;
+end;
+/
